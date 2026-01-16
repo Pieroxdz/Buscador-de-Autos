@@ -23,6 +23,16 @@ const limpiarHTML = (referencia) => {
     }
 }
 
+const sinResultado = () => {
+    limpiarHTML(resultado)
+
+    const sinResultado = document.createElement("DIV");
+    sinResultado.classList.add("alerta", "error");
+    sinResultado.textContent = "No hay resultados"
+
+    resultado.appendChild(sinResultado)
+}
+
 const filtrarColor = (auto) => {
     const { color } = datosBusqueda;
     if (color) {
@@ -84,7 +94,12 @@ const filtrarMarca = (auto) => {
 
 const filtrarAuto = () => {
     const resultado = autos.filter(filtrarMarca).filter(filtrarYear).filter(filtrarMinimo).filter(filtraMaximo).filter(filtrarPuertas).filter(filtrarTransmision).filter(filtrarColor)
-    mostrarAutos(resultado);
+
+    if (resultado.length) {
+        mostrarAutos(resultado);
+    } else {
+        sinResultado();
+    }
 }
 
 const mostrarAutos = (autos) => {
